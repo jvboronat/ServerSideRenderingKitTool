@@ -5,6 +5,8 @@ import ReactDom from 'react-dom/server';
 
 const app = express();
 
+app.use(express.json()) 
+
 require('dotenv').config();
 
 app.use((req, res, next) => {
@@ -17,9 +19,12 @@ app.use((req, res, next) => {
 
 app.use('/static', express.static(path.join(__dirname, '..', '..', 'dist', 'static')));
 
-app.get( '/ServerSideRendering/:tablename/:paramname/:param', async (req, res) => {  
+app.post( '/ServerSideRendering/:tablename/:paramname/:param', async (req, res) => {  
 
     const {tablename, paramname, param} = req.params;
+    const {body} = req;
+    console.log(body)
+
     
      const table = require('./sql/table')
 
